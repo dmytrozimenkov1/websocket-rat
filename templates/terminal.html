@@ -5,20 +5,19 @@
     <title>Terminal</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #output {
+        #terminal {
             width: 100%;
-            height: 300px;
+            height: 80vh;
             background-color: #000;
             color: #fff;
             overflow: auto;
-            white-space: pre-wrap;
             padding: 10px;
+            white-space: pre-wrap;
+            outline: none;
+            border: none;
         }
-        #commandInput {
-            width: calc(100% - 100px);
-        }
-        #sendCommand {
-            width: 90px;
+        .prompt {
+            color: #0f0;
         }
     </style>
 </head>
@@ -26,13 +25,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div id="output"></div>
-                <input type="text" id="commandInput" class="form-control">
-                <button id="sendCommand" class="btn btn-primary mt-2">Send</button>
+                <div id="terminal"></div>
             </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
-    <script src="/static/js/client_script.js"></script>
+    <script src="/static/js/terminal_script.js"></script>
 </body>
 </html>
